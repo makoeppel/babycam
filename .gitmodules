@@ -1,0 +1,3 @@
+[submodule "Rpi-SetWiFi-viaBluetooth"]
+	path = Rpi-SetWiFi-viaBluetooth
+	url = https://github.com/nksan/Rpi-SetWiFi-viaBluetooth

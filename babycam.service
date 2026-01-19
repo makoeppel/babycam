@@ -1,0 +1,25 @@
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+[Unit]
+Description=Babycam Service
+After=multi-user.target
+Conflicts=getty@tty1.service
+ 
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /pathTo/stream.py
+StandardInput=tty-force
+ 
+[Install]
+WantedBy=multi-user.target

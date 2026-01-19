@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Babycam WebRTC Test</title>
+</head>
+<body>
+  <h1>WebRTC Camera Test</h1>
+  <video id="v" autoplay playsinline controls style="max-width:100%;"></video>
+
+  <script>
+    async function start() {
+      const pc = new RTCPeerConnection();
+
+      // IMPORTANT: explicitly request a video m-line (recvonly)
+      pc.addTransceiver("video", { direction: "recvonly" });
+
+      pc.ontrack = (ev) => {
+        document.getElementById("v").srcObject = ev.streams[0];
+      };
+
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+
+      const resp = await fetch("/offer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sdp: pc.localDescription.sdp, type: pc.localDescription.type })
+      });
+
+      const answer = await resp.json();
+      await pc.setRemoteDescription(answer);
+    }
+
+    start().catch(console.error);
+  </script>
+</body>
+</html>
+
