@@ -1,0 +1,10 @@
+example.com {
+
+    basicauth /* {
+        admin <PASTE_HASH_HERE>
+    }
+
+    handle_path /* {
+        reverse_proxy 127.0.0.1:8080
+    }
+}

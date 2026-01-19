@@ -1,39 +1,43 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Babycam WebRTC Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Babycam</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <link rel="stylesheet" href="static/styles.css" />
 </head>
+
 <body>
-  <h1>WebRTC Camera Test</h1>
-  <video id="v" autoplay playsinline controls style="max-width:100%;"></video>
+  <div id="container">
+    <video id="video" autoplay playsinline muted></video>
+    <audio id="audio" autoplay></audio>
 
-  <script>
-    async function start() {
-      const pc = new RTCPeerConnection();
+    <div id="label">Babycam</div>
 
-      // IMPORTANT: explicitly request a video m-line (recvonly)
-      pc.addTransceiver("video", { direction: "recvonly" });
+    <div id="battery" class="pill top-right">
+      🔋 <span id="batPct">--%</span>
+    </div>
 
-      pc.ontrack = (ev) => {
-        document.getElementById("v").srcObject = ev.streams[0];
-      };
+    <div id="hud">
+      <div class="pill">
+        <span class="dot" id="motionDot"></span>
+        <span id="motionText">No motion</span>
+      </div>
 
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
+      <div class="pill">
+        <span aria-hidden="true">🔊</span>
+        <div class="meter"><div class="bar" id="soundBar"></div></div>
+      </div>
+    </div>
 
-      const resp = await fetch("/offer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sdp: pc.localDescription.sdp, type: pc.localDescription.type })
-      });
+    <button id="tapToUnmute" class="tap hidden">Tap to enable audio</button>
+  </div>
 
-      const answer = await resp.json();
-      await pc.setRemoteDescription(answer);
-    }
-
-    start().catch(console.error);
-  </script>
+  <script defer src="static/app.js"></script>
 </body>
 </html>
 

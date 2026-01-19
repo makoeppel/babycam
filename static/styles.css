@@ -1,0 +1,119 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain; /* change to cover to fill/crop */
+  background: #000;
+}
+
+#label {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+}
+
+#hud {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.55);
+  color: rgba(255,255,255,0.92);
+  font-size: 14px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+
+.top-right {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  right: 12px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.0);
+}
+
+.dot.on {
+  background: rgba(255,80,80,0.95);
+  box-shadow: 0 0 18px 2px rgba(255,80,80,0.55);
+}
+
+.meter {
+  width: 130px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: rgba(120,200,255,0.95);
+  transition: width 80ms linear;
+}
+
+.tap {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  transform: translateX(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hidden { display: none; }
+
