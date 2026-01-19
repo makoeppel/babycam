@@ -17,8 +17,8 @@ APP_PORT="8080"
 
 # Caddy site config
 # If you want HTTPS with a real cert, set SITE to your domain (e.g. babycam.example.com)
-# For LAN-only with internal TLS, you can set: SITE="https://olecam.local"
-SITE="${SITE:-olecam.local}"  # can override: SITE=babycam.example.com ./install.sh
+# For LAN-only with internal TLS, you can set: SITE="https://babycam.local"
+SITE="${SITE:-babycam.local}"  # can override: SITE=babycam.example.com ./install.sh
 
 # Basic auth user/pass (prompted if not set)
 AUTH_USER="${AUTH_USER:-admin}"
@@ -175,7 +175,7 @@ CADDYFILE_PATH="/etc/caddy/Caddyfile"
 cp -f "${CADDYFILE_PATH}" "${CADDYFILE_PATH}.bak.$(date +%s)" || true
 
 # If you use a real domain, Caddy will get a public cert automatically.
-# For LAN-only (olecam.local), Caddy may need internal TLS:
+# For LAN-only (babycam.local), Caddy may need internal TLS:
 # We'll enable internal TLS automatically when SITE ends with .local
 TLS_LINE=""
 if [[ "${SITE}" == *.local ]]; then

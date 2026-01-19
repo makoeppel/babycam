@@ -1,5 +1,7 @@
 # quickstart
-sudo ./install.sh
+python -m venv venv
+source venv/bin/activate
+sudo SITE=babycam.example.com ./install.sh
 
 # battery (http://<your raspberry ip>:8421)
 wget https://cdn.pisugar.com/release/pisugar-power-manager.sh
