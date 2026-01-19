@@ -1,3 +1,6 @@
+# quickstart
+sudo ./install.sh
+
 # battery (http://<your raspberry ip>:8421)
 wget https://cdn.pisugar.com/release/pisugar-power-manager.sh
 bash pisugar-power-manager.sh -c release
