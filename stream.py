@@ -36,11 +36,9 @@ class CameraStreamTrack(VideoStreamTrack):
 
 
 # -----------------------------
-# Audio init (ALSA via FFmpeg)
-# Use MediaRelay so multiple clients work reliably.
-# Low-latency-ish options reduce buffering (best effort).
+# Audio init (iPhone-safe)
 # -----------------------------
-AUDIO_DEVICE = "plughw:1,0"  # USB mic: card 1, device 0
+AUDIO_DEVICE = "plughw:1,0"  # USB mic card 1, device 0
 
 relay = MediaRelay()
 
@@ -48,12 +46,13 @@ audio_player = MediaPlayer(
     AUDIO_DEVICE,
     format="alsa",
     options={
-        "channels": "2",        # your ffmpeg test showed stereo
+        # Force MONO for best iOS compatibility
+        "channels": "1",
         "sample_rate": "48000",
-        "fflags": "nobuffer",
-        "flags": "low_delay",
-        "probesize": "32",
-        "analyzeduration": "0",
+
+        # Smooth clock drift / avoid "brrrr"
+        # (ffmpeg filter; works well for WebRTC capture)
+        "af": "aresample=async=1:min_hard_comp=0.100:first_pts=0",
     },
 )
 
@@ -165,4 +164,3 @@ app.router.add_static("/static/", path="static", name="static")
 if __name__ == "__main__":
     # Use 127.0.0.1 if behind Caddy, otherwise 0.0.0.0 for LAN access
     web.run_app(app, host="0.0.0.0", port=8080)
-
