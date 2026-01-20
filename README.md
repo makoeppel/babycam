@@ -1,6 +1,6 @@
 # quickstart
 ```bash
-python -m venv venv
+python -m venv --system-site-packages venv
 source venv/bin/activate
 sudo SITE=babycam.example.com ./install.sh
 ```

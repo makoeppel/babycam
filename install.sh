@@ -93,22 +93,22 @@ for f in stream.py index.html; do
   fi
 done
 
-cp -f "${SRC_DIR}/stream.py" "${APP_DIR}/stream.py"
-cp -f "${SRC_DIR}/index.html" "${APP_DIR}/index.html"
+#cp -f "${SRC_DIR}/stream.py" "${APP_DIR}/stream.py"
+#cp -f "${SRC_DIR}/index.html" "${APP_DIR}/index.html"
 
 # Static folder
-if [[ -d "${SRC_DIR}/static" ]]; then
-  cp -rf "${SRC_DIR}/static/." "${APP_DIR}/static/"
-else
-  echo "Missing static/ directory in ${SRC_DIR} (expected static/app.js and static/styles.css)."
-  exit 1
-fi
+#if [[ -d "${SRC_DIR}/static" ]]; then
+#  cp -rf "${SRC_DIR}/static/." "${APP_DIR}/static/"
+#else
+#  echo "Missing static/ directory in ${SRC_DIR} (expected static/app.js and static/styles.css)."
+#  exit 1
+#fi
 
 chown -R "${APP_USER}:${APP_GROUP}" "${APP_DIR}"
 
 echo_step "Creating Python venv and installing Python dependencies"
 if [[ ! -d "${VENV_DIR}" ]]; then
-  sudo -u "${APP_USER}" python3 -m venv "${VENV_DIR}"
+  sudo -u "${APP_USER}" python3 -m venv --system-site-packages "${VENV_DIR}"
 fi
 
 # Upgrade pip + install deps
